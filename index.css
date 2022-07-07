@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'travelfont';
+    src: url('content/timetravel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: travelfont;
+}
