@@ -8,3 +8,35 @@
 body {
     font-family: travelfont;
 }
+
+video {
+    object-fit: fill;
+}
+
+#date {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  font-size: 5vw;
+  color: blue;
+  background-color: whitesmoke;
+  opacity: 0.6;
+  border-radius: 1vw;
+  padding: 1vw;
+}
+
+.bc {
+    color: red !important;
+}
+
+button {
+    background: url('content/button.png') no-repeat;
+    background-size: cover;
+    cursor:pointer;
+    padding-top: 1vw;
+    width: 4vw;
+    height: 4vw;
+    border: none;
+}
