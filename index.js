@@ -26,10 +26,10 @@ function playPauseMedia() {
 }
 
 function stopMedia() {
+    console.log("stopMedia");
     run = false;
     media.pause();
     media.currentTime = 0;
-    play.setAttribute('data-icon','P');
 }
 
 function handleKey(e) {
@@ -63,7 +63,8 @@ function runAnimation() {
     if (!run) return;
     if (runAnimation.ticks >= 1) {
         stopMedia();
-        updateUi(runAnimation.endValue)
+        updateUi(runAnimation.endValue - 1)
+        setTimeout(function() { updateUi(runAnimation.endValue); }, runAnimation.timeout);
         return;
     }
 
@@ -86,6 +87,7 @@ function updateUi(value) {
     bcElement.innerHTML = bc ? '-' : '';
     if (bc) dateElement.classList.add('bc');
     else dateElement.classList.remove('bc');
+    console.log("show year: " + yearElement.innerHTML);
 }
 
 function BezierBlend(t)
