@@ -1,5 +1,6 @@
 //Elements
 const media = document.querySelector('video');
+const audio = document.querySelector('audio');
 const button = document.querySelector('button');
 const yearInput = document.getElementById('yearsInput');
 const yearSpan = document.getElementById('yearsSpan');
@@ -29,6 +30,10 @@ let run = false;
 function playPauseMedia() {
     if(media.paused) {
       run = true;
+      audio.currentTime = 10;
+      audio.volume = 0;
+      audio.play();
+      fadeInAudio();
       media.currentTime = 0;
       media.playbackRate = 1;
       media.play();
@@ -39,9 +44,25 @@ function playPauseMedia() {
     }
 }
 
+function fadeInAudio() {
+    if (audio.volume >= 1) return;
+    audio.volume = audio.volume + 0.1;
+    setTimeout(fadeInAudio, 100);
+}
+
+function fadeOutAudio() {
+    if (audio.volume <= 0) {
+        audio.pause();
+        return;
+    }
+    audio.volume = audio.volume - 0.1;
+    setTimeout(fadeOutAudio, 100);
+}
+ 
 function stopMedia() {
     run = false;
     media.pause();
+    fadeOutAudio();
 }
 
 function handleKey(e) {
