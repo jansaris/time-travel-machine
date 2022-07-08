@@ -29,6 +29,13 @@ video {
   padding: 1vw;
 }
 
+input {
+    font-size: 5vw;
+    font-family: travelfont;
+    width: 30vw;
+    border: 0;
+}
+
 .bc {
     color: red !important;
 }

@@ -1,57 +1,74 @@
 //Elements
 const media = document.querySelector('video');
 const button = document.querySelector('button');
-const yearElement = document.getElementById('years');
+const yearInput = document.getElementById('yearsInput');
+const yearSpan = document.getElementById('yearsSpan');
 const bcElement = document.getElementById('bc');
 const dateElement = document.getElementById('date');
+const inputElement = document.getElementById('input');
+const animationElement = document.getElementById('animation');
 
 //Listeners
 button.addEventListener('click', playPauseMedia);
 media.addEventListener('ended', stopMedia);
-document.addEventListener('keyup', handleKey);
+yearInput.addEventListener('keydown', handleKey);
+animationElement.addEventListener('click', () => { if (!run) toggleInput(); });
+
+//Force landscape
+(async () => {
+    try {
+        await screen.orientation.lock('landscape');
+    }
+    catch {
+        //Ignore
+    }
+})();
 
 let run = false;
-let year = "";
 
 function playPauseMedia() {
     if(media.paused) {
       run = true;
-      button.setAttribute('data-icon','u');
+      media.currentTime = 0;
       media.playbackRate = 1;
       media.play();
+      toggleInput();
       startAnimation();
     } else {
-        stopMedia() 
+      stopMedia() 
     }
 }
 
 function stopMedia() {
-    console.log("stopMedia");
     run = false;
     media.pause();
-    media.currentTime = 0;
 }
 
 function handleKey(e) {
     if (run) return;
     e = e || window.event;
+    if(isNaN(e.key)) {
+        if (e.preventDefault) e.preventDefault();
+        e.returnValue = false;
+    }
     if (e.keyCode === 27 || e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 110) {
-        year = "";
+        yearInput.value = "";
         bc = false;
     }
-    else if (e.key === '-') year = "" + (Number(year) * -1);
+    else if (e.key === '-') {
+        if (yearInput.value === "") yearInput.value = "-";
+        else if (yearInput.value === "-") yearInput.value = "";
+        else yearInput.value = "" + (Number( yearInput.value) * -1);
+    }
     else if (e.keyCode === 13) playPauseMedia();
-    else if(!isNaN(e.key)) year += e.key;
-
-    updateUi(year);
 }
 
 function startAnimation() {
     runAnimation.startValue = 2022;
-    let endYear = runAnimation.endValue = Number(year);
-    year = "";
+    let endYear = runAnimation.endValue = Number(yearInput.value);
+    yearInput.value = "";
     runAnimation.ticks = 0;
-    runAnimation.interval = 1 / 400;
+    runAnimation.interval = 1 / 351;
     runAnimation.timeout = 100;
     runAnimation.diff = endYear - runAnimation.startValue;
     runAnimation.future = endYear > runAnimation.startValue;
@@ -83,11 +100,20 @@ function runAnimation() {
 
 function updateUi(value) {
     let bc = value < 0;
-    yearElement.innerHTML = Math.abs(value);
+    yearSpan.innerHTML = Math.abs(value);
     bcElement.innerHTML = bc ? '-' : '';
     if (bc) dateElement.classList.add('bc');
     else dateElement.classList.remove('bc');
-    console.log("show year: " + yearElement.innerHTML);
+}
+
+function toggleInput() {
+    if (run) {
+        inputElement.style.display = 'none';
+        animationElement.style.display = 'block';
+    } else {
+        inputElement.style.display = 'block';
+        animationElement.style.display = 'none';
+    }
 }
 
 function BezierBlend(t)
