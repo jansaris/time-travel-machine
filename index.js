@@ -89,7 +89,7 @@ function startAnimation() {
     let endYear = runAnimation.endValue = Number(yearInput.value);
     yearInput.value = "";
     runAnimation.ticks = 0;
-    runAnimation.interval = 1 / 351;
+    runAnimation.interval = 1 / 360;
     runAnimation.timeout = 100;
     runAnimation.diff = endYear - runAnimation.startValue;
     runAnimation.future = endYear > runAnimation.startValue;
