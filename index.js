@@ -14,7 +14,13 @@ const animationElement = document.getElementById('animation');
 let locations = ['left-bottom', 'right-bottom'];
 locations.index = 0;
 let images = [];
+addImage('prehistory', -7000, -4500)
 addImage('hunters', -4000, -3000)
+addImage('romans', -2000, 0)
+addImage('knights', 500, 1000)
+addImage('voc', 1250, 1800)
+addImage('modern', 1950, 2200)
+addImage('ufo', 2300, 3000)
 
 //Listeners
 set.addEventListener('click', setData);
