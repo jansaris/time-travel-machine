@@ -12,13 +12,34 @@
             Your browser does not support the video tag.
           </video>
           <div id="date">
-            <div id="animation">
+            <div id="animation" style="display: none">
               <span id="bc"></span>
               <span id="yearsSpan"></span>
+              <button type="button" id="travel"></button>
             </div>
             <div id="input">
-              <input type="text" id="yearsInput"></input>
-              <button type="button"></button>
+              <select id="start">
+                <option value="-6510">-6510</option>
+                <option value="-5000">-5000</option>
+                <option value="-3500">-3500</option>
+                <option value="-1100">-1100</option>
+                <option value="864">864</option>
+                <option value="1550">1550</option>
+                <option value="2022">2022</option>
+                <option value="2998">2998</option>
+              </select>
+              <span>>></span>
+              <select id="end">
+                <option value="-6510">-6510</option>
+                <option value="-5000">-5000</option>
+                <option value="-3500">-3500</option>
+                <option value="-1100">-1100</option>
+                <option value="864">864</option>
+                <option value="1550">1550</option>
+                <option value="2022">2022</option>
+                <option value="2998">2998</option>
+              </select>
+              <button type="button" id="set"></button>
             </div>
           </div>
         <script src="index.js"></script>

@@ -29,10 +29,17 @@ video {
   padding: 1vw;
 }
 
-input {
+#date > * {
+    display: inline-block;
+}
+
+#animation > * {
     font-size: 5vw;
+}
+
+select, span {
+    font-size: 2.5vw;
     font-family: travelfont;
-    width: 30vw;
     border: 0;
 }
 
@@ -40,7 +47,18 @@ input {
     color: red !important;
 }
 
-button {
+
+#set {
+    background: url('content/set.png') no-repeat;
+    background-size: cover;
+    cursor:pointer;
+    padding-top: 1vw;
+    width: 2.5vw;
+    height: 2.5vw;
+    border: none;
+}
+
+#travel {
     background: url('content/button.png') no-repeat;
     background-size: cover;
     cursor:pointer;

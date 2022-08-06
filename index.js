@@ -1,8 +1,10 @@
 //Elements
 const media = document.querySelector('video');
 const audio = document.querySelector('audio');
-const button = document.querySelector('button');
-const yearInput = document.getElementById('yearsInput');
+const set = document.getElementById('set');
+const travel = document.getElementById('travel');
+const startInput = document.getElementById('start');
+const endInput = document.getElementById('end');
 const yearSpan = document.getElementById('yearsSpan');
 const bcElement = document.getElementById('bc');
 const dateElement = document.getElementById('date');
@@ -10,9 +12,9 @@ const inputElement = document.getElementById('input');
 const animationElement = document.getElementById('animation');
 
 //Listeners
-button.addEventListener('click', playPauseMedia);
+set.addEventListener('click', setData);
+travel.addEventListener('click', playPauseMedia);
 media.addEventListener('ended', stopMedia);
-yearInput.addEventListener('keydown', handleKey);
 animationElement.addEventListener('click', () => { if (!run) toggleInput(); });
 
 //Force landscape
@@ -38,7 +40,8 @@ function playPauseMedia() {
       media.playbackRate = 1;
       media.play();
       toggleInput();
-      startAnimation();
+      runAnimation();
+      travel.style.display = "none";
     } else {
       stopMedia() 
     }
@@ -65,36 +68,18 @@ function stopMedia() {
     fadeOutAudio();
 }
 
-function handleKey(e) {
-    if (run) return;
-    e = e || window.event;
-    if(isNaN(e.key)) {
-        if (e.preventDefault) e.preventDefault();
-        e.returnValue = false;
-    }
-    if (e.keyCode === 27 || e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 110) {
-        yearInput.value = "";
-        bc = false;
-    }
-    else if (e.key === '-') {
-        if (yearInput.value === "") yearInput.value = "-";
-        else if (yearInput.value === "-") yearInput.value = "";
-        else yearInput.value = "" + (Number( yearInput.value) * -1);
-    }
-    else if (e.keyCode === 13) playPauseMedia();
-}
-
-function startAnimation() {
-    runAnimation.startValue = 2022;
-    let endYear = runAnimation.endValue = Number(yearInput.value);
-    yearInput.value = "";
+function setData() {
+    runAnimation.startValue = Number(startInput.value);
+    let endYear = runAnimation.endValue = Number(endInput.value);
     runAnimation.ticks = 0;
     runAnimation.interval = 1 / 360;
     runAnimation.timeout = 100;
     runAnimation.diff = endYear - runAnimation.startValue;
     runAnimation.future = endYear > runAnimation.startValue;
     runAnimation.diff = Math.abs(runAnimation.diff);
-    runAnimation();
+    animationElement.style.display = "block";
+    inputElement.style.display = "none";
+    updateUi(runAnimation.startValue);
 }
 
 function runAnimation() {
@@ -109,7 +94,7 @@ function runAnimation() {
     runAnimation.ticks = runAnimation.ticks + runAnimation.interval;
     let diff = (ParametricBlend(runAnimation.ticks) * runAnimation.diff);
     let calculated = runAnimation.future ? runAnimation.startValue + diff : runAnimation.startValue - diff;
-    let calculatedYear = Math.round(calculated);
+    let calculatedYear = runAnimation.future ? Math.ceil(calculated) : Math.floor(calculated);
 
     updateUi(calculatedYear);
 
