@@ -11,7 +11,7 @@ const dateElement = document.getElementById('date');
 const inputElement = document.getElementById('input');
 const animationElement = document.getElementById('animation');
 //Images
-let locations = ['left-bottom', 'right-bottom'];
+let locations = ['left-bottom', 'right-top', 'right-bottom', 'left-top'];
 locations.index = 0;
 let images = [];
 addImage('prehistory', -7000, -4500)
@@ -20,7 +20,7 @@ addImage('romans', -2000, 0)
 addImage('knights', 500, 1000)
 addImage('voc', 1250, 1800)
 addImage('modern', 1950, 2200)
-addImage('ufo', 2300, 3000)
+addImage('ufo', 2800, 3000)
 
 //Listeners
 set.addEventListener('click', setData);

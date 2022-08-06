@@ -33,18 +33,28 @@ video {
     position: fixed;
 }
 
+img.left-top {
+    top: 8vw;
+    left: 4vw;
+}
+
+img.right-top {
+    top: 8vw;
+    left: 72vw;
+}
+
 img.left-bottom {
-    top: 38vw;
-    left: 8vw;
+    top: 28vw;
+    left: 4vw;
 }
 
 img.right-bottom {
-    top: 38vw;
-    left: 80vw;
+    top: 28vw;
+    left: 72vw;
 }
 
 #image > img {
-    width: 15vw;
+    width: 24vw;
     border-radius: 2vw;
     opacity: 0;
 }
