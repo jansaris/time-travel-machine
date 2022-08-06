@@ -10,6 +10,11 @@ const bcElement = document.getElementById('bc');
 const dateElement = document.getElementById('date');
 const inputElement = document.getElementById('input');
 const animationElement = document.getElementById('animation');
+//Images
+let locations = ['left-bottom', 'right-bottom'];
+locations.index = 0;
+let images = [];
+addImage('hunters', -4000, -3000)
 
 //Listeners
 set.addEventListener('click', setData);
@@ -48,13 +53,13 @@ function playPauseMedia() {
 }
 
 function fadeInAudio() {
-    if (audio.volume >= 1) return;
+    if (audio.volume >= 0.95) return;
     audio.volume = audio.volume + 0.1;
     setTimeout(fadeInAudio, 100);
 }
 
 function fadeOutAudio() {
-    if (audio.volume <= 0) {
+    if (audio.volume <= 0.05) {
         audio.pause();
         return;
     }
@@ -97,6 +102,7 @@ function runAnimation() {
     let calculatedYear = runAnimation.future ? Math.ceil(calculated) : Math.floor(calculated);
 
     updateUi(calculatedYear);
+    updateImage(calculatedYear);
 
     if (runAnimation.ticks > 0.8) media.playbackRate = 0.5;
     if (runAnimation.ticks > 0.9) media.playbackRate = 0.2;
@@ -110,6 +116,31 @@ function updateUi(value) {
     bcElement.innerHTML = bc ? '-' : '';
     if (bc) dateElement.classList.add('bc');
     else dateElement.classList.remove('bc');
+}
+
+function updateImage(value) {
+    images.forEach(image => {
+        if (image.enabled && !(value > image.start && value < image.end)) {
+            image.enabled = false;
+            hideImage(image, 0.9);
+        }
+        else if (!image.enabled && value > image.start && value < image.end) {
+            image.enabled = true;
+            showImage(image, 0.1);
+        }
+    });
+}
+
+function showImage(image, opacity) {
+    image.style.opacity = opacity;
+    if (opacity > 0.95) return;
+    setTimeout(() => showImage(image, opacity + 0.1), 100);
+}
+
+function hideImage(image, opacity) {
+    image.style.opacity = opacity;
+    if (opacity < 0.05) return;
+    setTimeout(() => hideImage(image, opacity - 0.1), 100);
 }
 
 function toggleInput() {
@@ -131,4 +162,16 @@ function ParametricBlend(t)
 {
     const sqt = t * t;
     return sqt / (2.0 * (sqt - t) + 1.0);
+}
+
+function addImage(imageId, start, end) {
+    let image = document.getElementById(imageId);
+    image.start = start;
+    image.end = end;
+    image.enabled = false;
+    image.style.opacity = 0;
+    image.classList.add(locations[locations.index]);
+    locations.index++;
+    if (locations.index == locations.length) locations.index = 0;
+    images.push(image);
 }

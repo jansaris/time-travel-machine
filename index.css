@@ -29,6 +29,26 @@ video {
   padding: 1vw;
 }
 
+#image > img {
+    position: fixed;
+}
+
+img.left-bottom {
+    top: 38vw;
+    left: 8vw;
+}
+
+img.right-bottom {
+    top: 38vw;
+    left: 80vw;
+}
+
+#image > img {
+    width: 15vw;
+    border-radius: 2vw;
+    opacity: 0;
+}
+
 #date > * {
     display: inline-block;
 }
