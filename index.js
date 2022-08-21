@@ -17,8 +17,9 @@ let images = [];
 addImage('prehistory', -7000, -4500)
 addImage('hunters', -4000, -3000)
 addImage('romans', -2000, 0)
-addImage('knights', 500, 1000)
-addImage('voc', 1250, 1800)
+addImage('knights', 500, 950)
+addImage('viking', 950, 1250)
+addImage('voc', 1300, 1800)
 addImage('modern', 1950, 2200)
 addImage('ufo', 2800, 3000)
 
