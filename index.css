@@ -29,6 +29,11 @@ video {
   padding: 1vw;
 }
 
+#date .instructions {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1vw;
+}
+
 #image > img {
     position: fixed;
 }
